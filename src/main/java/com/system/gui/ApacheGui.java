@@ -7,7 +7,7 @@ public class ApacheGui {
     public static void iniciar(String path){
         if(!ApacheServices.xlExists(path)){
             Object object = null;
-            ApacheServices.creatDocument(path, object);
+            ApacheServices.criarDocumento(path, object);
         }
     }
 }
