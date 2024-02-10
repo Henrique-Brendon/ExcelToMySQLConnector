@@ -1,8 +1,11 @@
 package com.system.apacheException;
 
 public class ApacheException extends RuntimeException{
-    
-    public ApacheException(String info){
-        super(info);
-    }
+
+	private static final long serialVersionUID = 1L;
+
+	public ApacheException(String info) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

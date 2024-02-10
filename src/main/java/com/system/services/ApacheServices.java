@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -13,6 +11,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.system.apacheException.ApacheException;
 import com.system.entities.ProdutoExtends;
+import com.system.entities.entitiesProduto.Amd;
+import com.system.entities.entitiesProduto.Intel;
+import com.system.entities.entitiesProduto.Nvidia;
 
 public class ApacheServices {
     
@@ -22,32 +23,39 @@ public class ApacheServices {
     }
 
     public static void criarDocumento(String path, Object object) {
-        try(OutputStream file = new FileOutputStream(path)){
+        try (OutputStream file = new FileOutputStream(path)) {
             XSSFWorkbook book = new XSSFWorkbook();
             System.out.print("Documento criado");
-            List<ProdutoExtends> planilhas = criarSheets(book);
-            for (ProdutoExtends produto : planilhas) {
-                produto.cabecalhoPrincipal(produto, "3a3a", "05/05/2015");
-                produto.cabecalhoSecundario(produto);
+            ProdutoExtends p1 = new ProdutoExtends();
+            if (object instanceof Nvidia) {
+                p1 = (Nvidia) object;
+            } else if (object instanceof Amd) {
+                p1 = (Amd) object;
+            } else if (object instanceof Intel) {
+                p1 = (Intel) object;
             }
+            p1.toString();
+            criarSheets(book, p1);
             book.write(file);
             book.close();
-        } catch(IOException e){
-            throw new ApacheException("Falha na criação da planilha");
+        } catch (IOException e) {
+            throw new ApacheException("Erro");
         }
     }
 
-    private static List<ProdutoExtends> criarSheets(XSSFWorkbook livro) {
-        List<ProdutoExtends> planilhas = new ArrayList<>();
+    private static void criarSheets(XSSFWorkbook book, ProdutoExtends prototypeObj) {
         for (int i = 1; i <= 12; i++) {
-            String nomePlanilha = (i < 10) ? "0" + i : String.valueOf(i);
-            XSSFSheet sheet = livro.createSheet(nomePlanilha);
-            ProdutoExtends p = new ProdutoExtends(sheet, livro.createCellStyle(), livro.createFont(), sheet.createRow(0), null);
-            p.iniciarObjeto(livro, nomePlanilha, p); // os objetos estão pegando a referência da folha da planilha 
-            planilhas.add(p);
+            String sheetName = (i < 10) ? "0" + i : String.valueOf(i);
+            book.createSheet(sheetName);
+
+            ProdutoExtends obj = prototypeObj.iniciarObjeto(book, sheetName, prototypeObj);
+
+            obj.cabecalho(obj, "3a3a", "0505");
+
         }
-        return planilhas;
     }
+
+
 
     public static boolean isRegionMerged(XSSFSheet sheet, CellRangeAddress region){
         int numMergedRegion = sheet.getNumMergedRegions();
