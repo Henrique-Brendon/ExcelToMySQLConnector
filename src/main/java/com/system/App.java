@@ -5,6 +5,8 @@ import java.util.Random;
 
 import com.system.gui.ApacheGui;
 
+import jdbc.db.Db;
+
 /**
  * Hello world!
  *
@@ -12,7 +14,7 @@ import com.system.gui.ApacheGui;
 public class App 
 {
     public static void main(String[] args) {
-    	ApacheGui.iniciar("teste.xlsx");
+    	Db.getConnection();
 
     }
 
