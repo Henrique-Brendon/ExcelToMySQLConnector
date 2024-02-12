@@ -1,6 +1,6 @@
 package com.system.interfac;
 
-import com.system.entities.ProdutoExtends;
+import com.system.model.entities.ProdutoExtends;
 
 public interface ApacheInterface {
     void logo(ProdutoExtends produto);

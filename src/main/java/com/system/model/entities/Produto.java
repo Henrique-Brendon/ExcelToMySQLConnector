@@ -1,4 +1,4 @@
-package com.system.entities;
+package com.system.model.entities;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

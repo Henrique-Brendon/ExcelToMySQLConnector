@@ -1,4 +1,4 @@
-package com.system.entities;
+package com.system.model.entities;
 
 import java.util.HashMap;
 import java.util.Map;

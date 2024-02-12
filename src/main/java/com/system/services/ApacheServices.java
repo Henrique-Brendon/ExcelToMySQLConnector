@@ -13,10 +13,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.system.apacheException.ApacheException;
-import com.system.entities.ProdutoExtends;
-import com.system.entities.entitiesProduto.Amd;
-import com.system.entities.entitiesProduto.Intel;
-import com.system.entities.entitiesProduto.Nvidia;
+import com.system.model.entities.ProdutoExtends;
+import com.system.model.entities.entitiesProduto.Amd;
+import com.system.model.entities.entitiesProduto.Intel;
+import com.system.model.entities.entitiesProduto.Nvidia;
+
 
 public class ApacheServices {
 

@@ -1,4 +1,4 @@
-package com.system.entities.entitiesProduto;
+package com.system.model.entities.entitiesProduto;
 
 import java.util.List;
 import java.util.Random;
@@ -15,21 +15,20 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
-import com.system.entities.Produto;
-import com.system.entities.ProdutoExtends;
-import com.system.entities.Setor;
 import com.system.interfac.ApacheInterface;
 import com.system.interfac.ProdutoInterface;
+import com.system.model.entities.Produto;
+import com.system.model.entities.ProdutoExtends;
+import com.system.model.entities.Setor;
 import com.system.services.ApacheServices;
 
-public class Nvidia extends ProdutoExtends implements ApacheInterface, ProdutoInterface {
+public class Intel extends ProdutoExtends implements ApacheInterface, ProdutoInterface {
 
-	public Nvidia(XSSFSheet sheet, XSSFCellStyle style, XSSFFont font, XSSFRow row, XSSFCell cell) {
+	public Intel(XSSFSheet sheet, XSSFCellStyle style, XSSFFont font, XSSFRow row, XSSFCell cell) {
 		super(sheet, style, font, row, cell);
 	}
 
-	public Nvidia() {
-		// TODO Auto-generated constructor stub
+	public Intel() {
 	}
 
 	@Override
@@ -41,31 +40,30 @@ public class Nvidia extends ProdutoExtends implements ApacheInterface, ProdutoIn
 		produto.setRow(produto.getSheet().createRow(1));
 		produto.setCell(produto.getRow().createCell(0));
 
-		// Configuração do conteúdo da célula
-		produto.getCell().setCellValue("Nvidia");
+		produto.getCell().setCellValue("Intel");
 
 		produto.getStyle().setAlignment(HorizontalAlignment.CENTER);
 		produto.getStyle().setVerticalAlignment(org.apache.poi.ss.usermodel.VerticalAlignment.CENTER);
-		produto.getStyle().setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+		produto.getStyle().setFillForegroundColor(IndexedColors.BLUE.getIndex());
 		produto.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		produto.getCell().getRow().setHeightInPoints(30);
-		produto.getFont().setColor(IndexedColors.BLACK.getIndex());
+		produto.getFont().setColor(IndexedColors.WHITE.getIndex());
 		produto.getFont().setFontHeightInPoints((short) 30);
 		produto.getStyle().setFont(getFont());
 		produto.getCell().setCellStyle(getStyle());
 	}
 
 	@Override
-	public void aplicarEstilo(ProdutoExtends produto, int num) {
+	public void aplicarEstilo(ProdutoExtends produto, int number) {
 		produto.setStyle(produto.getSheet().getWorkbook().createCellStyle());
 		produto.setFont(produto.getSheet().getWorkbook().createFont());
 
-		produto.getStyle().setFillForegroundColor(IndexedColors.GREEN.getIndex());
+		produto.getStyle().setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
 		produto.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		produto.getFont().setColor(IndexedColors.WHITE.getIndex());
-		if (num == 0) {
+		produto.getFont().setColor(IndexedColors.BLACK.getIndex());
+		if (number == 0) {
 			produto.getStyle().setAlignment(HorizontalAlignment.LEFT);
-		} else if (num == 1) {
+		} else if (number == 1) {
 			produto.getStyle().setAlignment(HorizontalAlignment.RIGHT);
 
 		}
@@ -78,40 +76,34 @@ public class Nvidia extends ProdutoExtends implements ApacheInterface, ProdutoIn
 	public void estiloSecundario(ProdutoExtends obj, int num) {
 		obj.setStyle(obj.getSheet().getWorkbook().createCellStyle());
 		obj.setFont(obj.getSheet().getWorkbook().createFont());
-		if (num == 0) {// font da logo
-			obj.getStyle().setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-			obj.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
-			obj.getFont().setColor(IndexedColors.BLACK.getIndex());
-		} else if (num == 1) {
-			obj.getStyle().setFillForegroundColor(IndexedColors.GREEN.getIndex());
+		obj.getStyle().setAlignment(HorizontalAlignment.CENTER);
+		if (num == 0) {
+
+			obj.getStyle().setVerticalAlignment(org.apache.poi.ss.usermodel.VerticalAlignment.CENTER);
+			obj.getStyle().setFillForegroundColor(IndexedColors.BLUE.getIndex());
 			obj.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			obj.getFont().setColor(IndexedColors.WHITE.getIndex());
+		} else if (num == 1) {
+			obj.getStyle().setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+			obj.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			obj.getFont().setColor(IndexedColors.BLACK.getIndex());
 		}
-		obj.getStyle().setFont(obj.getFont());
-		obj.getCell().setCellStyle(obj.getStyle());
+		obj.getStyle().setFont(getFont());
+		obj.getCell().setCellStyle(getStyle());
 
-	}
-
-	@Override
-	public String toString() {
-		return "Nvidia []";
 	}
 
 	@Override
 	public List<Produto> iniciarProduto() {
-		return Stream.of( // data
-				new Produto("GTX 960", 200.0, 300.0, null, null, null, new Random().nextInt(16)),
-				new Produto("GTX 970", 400.0, 600.0, null, null, null, new Random().nextInt(16)),
-				new Produto("GTX 980", 450.0, 700.0, null, null, null, new Random().nextInt(16)),
-				new Produto("GTX 1060", 300.0, 500.0, null, null, null, new Random().nextInt(16)),
-				new Produto("GTX 1070", 500.0, 800.0, null, null, null, new Random().nextInt(16)),
-				new Produto("GTX 1080", 900.0, 1000.0, null, null, null, new Random().nextInt(16)),
-				new Produto("GTX 1080 TI", 1200.0, 1500.0, null, null, null, new Random().nextInt(16)),
-				new Produto("RTX 2060", 700.0, 1500.0, null, null, null, new Random().nextInt(16)),
-				new Produto("RTX 2060 SUPER", 900.0, 1700.0, null, null, null, new Random().nextInt(16)),
-				new Produto("RTX 2070", 1200.0, 1900.0, null, null, null, new Random().nextInt(16)),
-				new Produto("RTX 2080", 800.0, 2300.0, null, null, null, new Random().nextInt(16)),
-				new Produto("RTX 2080 TI", 1300.0, 2500.0, null, null, null, new Random().nextInt(16))).map(Produto -> {
+		return Stream
+				.of(new Produto("Intel Core i3-8100", 200.0, 300.0, null, null, null, new Random().nextInt(16)),
+						new Produto("Intel Core i5-6400", 400.0, 600.0, null, null, null, new Random().nextInt(16)),
+						new Produto("Intel Core i5-8500", 600.0, 700.0, null, null, null, new Random().nextInt(16)),
+						new Produto("Intel Core i5-8400", 550.0, 650.0, null, null, null, new Random().nextInt(16)),
+						new Produto("Intel Core i5-500", 100.0, 250.0, null, null, null, new Random().nextInt(16)),
+						new Produto("Intel Core i7-500", 300.0, 400.0, null, null, null, new Random().nextInt(16)),
+						new Produto("Intel Core i3-6400", 320.0, 480.0, null, null, null, new Random().nextInt(16)))
+				.map(Produto -> {
 					Produto.setSetor(Setor.mapSetor(Produto.getNome()));
 					return Produto;
 				}).collect(Collectors.toList());

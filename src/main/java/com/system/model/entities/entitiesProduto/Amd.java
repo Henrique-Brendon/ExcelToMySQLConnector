@@ -1,4 +1,4 @@
-package com.system.entities.entitiesProduto;
+package com.system.model.entities.entitiesProduto;
 
 import java.util.List;
 import java.util.Random;
@@ -15,23 +15,22 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
-import com.system.entities.Produto;
-import com.system.entities.ProdutoExtends;
-import com.system.entities.Setor;
 import com.system.interfac.ApacheInterface;
 import com.system.interfac.ProdutoInterface;
+import com.system.model.entities.Produto;
+import com.system.model.entities.ProdutoExtends;
+import com.system.model.entities.Setor;
 import com.system.services.ApacheServices;
 
-public class Intel extends ProdutoExtends implements ApacheInterface, ProdutoInterface {
+public class Amd extends ProdutoExtends implements ApacheInterface, ProdutoInterface {
 
-	public Intel(XSSFSheet sheet, XSSFCellStyle style, XSSFFont font, XSSFRow row, XSSFCell cell) {
+	public Amd(XSSFSheet sheet, XSSFCellStyle style, XSSFFont font, XSSFRow row, XSSFCell cell) {
 		super(sheet, style, font, row, cell);
 	}
 
-	public Intel() {
+	public Amd() {
 	}
 
-	@Override
 	public void logo(ProdutoExtends produto) {
 		CellRangeAddress c1 = new CellRangeAddress(1, 1, 0, 7);
 		if (!ApacheServices.isRegionMerged(produto.getSheet(), c1)) {
@@ -40,14 +39,14 @@ public class Intel extends ProdutoExtends implements ApacheInterface, ProdutoInt
 		produto.setRow(produto.getSheet().createRow(1));
 		produto.setCell(produto.getRow().createCell(0));
 
-		produto.getCell().setCellValue("Intel");
+		produto.getCell().setCellValue("Amd");
 
 		produto.getStyle().setAlignment(HorizontalAlignment.CENTER);
 		produto.getStyle().setVerticalAlignment(org.apache.poi.ss.usermodel.VerticalAlignment.CENTER);
-		produto.getStyle().setFillForegroundColor(IndexedColors.BLUE.getIndex());
+		produto.getStyle().setFillForegroundColor(IndexedColors.BLACK.getIndex());
 		produto.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		produto.getCell().getRow().setHeightInPoints(30);
-		produto.getFont().setColor(IndexedColors.WHITE.getIndex());
+		produto.getFont().setColor(IndexedColors.RED.getIndex());
 		produto.getFont().setFontHeightInPoints((short) 30);
 		produto.getStyle().setFont(getFont());
 		produto.getCell().setCellStyle(getStyle());
@@ -58,9 +57,9 @@ public class Intel extends ProdutoExtends implements ApacheInterface, ProdutoInt
 		produto.setStyle(produto.getSheet().getWorkbook().createCellStyle());
 		produto.setFont(produto.getSheet().getWorkbook().createFont());
 
-		produto.getStyle().setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+		produto.getStyle().setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
 		produto.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		produto.getFont().setColor(IndexedColors.BLACK.getIndex());
+		produto.getFont().setColor(IndexedColors.WHITE.getIndex());
 		if (number == 0) {
 			produto.getStyle().setAlignment(HorizontalAlignment.LEFT);
 		} else if (number == 1) {
@@ -76,37 +75,51 @@ public class Intel extends ProdutoExtends implements ApacheInterface, ProdutoInt
 	public void estiloSecundario(ProdutoExtends obj, int num) {
 		obj.setStyle(obj.getSheet().getWorkbook().createCellStyle());
 		obj.setFont(obj.getSheet().getWorkbook().createFont());
-		obj.getStyle().setAlignment(HorizontalAlignment.CENTER);
-		if (num == 0) {
 
-			obj.getStyle().setVerticalAlignment(org.apache.poi.ss.usermodel.VerticalAlignment.CENTER);
-			obj.getStyle().setFillForegroundColor(IndexedColors.BLUE.getIndex());
+		if (num == 0) {
+			obj.getStyle().setFillForegroundColor(IndexedColors.BLACK.getIndex());
+			obj.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			obj.getFont().setColor(IndexedColors.RED.getIndex());
+		} else if (num == 1) {
+			obj.getStyle().setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
 			obj.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			obj.getFont().setColor(IndexedColors.WHITE.getIndex());
-		} else if (num == 1) {
-			obj.getStyle().setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
-			obj.getStyle().setFillPattern(FillPatternType.SOLID_FOREGROUND);
-			obj.getFont().setColor(IndexedColors.BLACK.getIndex());
 		}
+
 		obj.getStyle().setFont(getFont());
-		obj.getCell().setCellStyle(getStyle());
+		obj.getCell().setCellStyle(obj.getStyle());
 
 	}
 
 	@Override
 	public List<Produto> iniciarProduto() {
-		return Stream
-				.of(new Produto("Intel Core i3-8100", 200.0, 300.0, null, null, null, new Random().nextInt(16)),
-						new Produto("Intel Core i5-6400", 400.0, 600.0, null, null, null, new Random().nextInt(16)),
-						new Produto("Intel Core i5-8500", 600.0, 700.0, null, null, null, new Random().nextInt(16)),
-						new Produto("Intel Core i5-8400", 550.0, 650.0, null, null, null, new Random().nextInt(16)),
-						new Produto("Intel Core i5-500", 100.0, 250.0, null, null, null, new Random().nextInt(16)),
-						new Produto("Intel Core i7-500", 300.0, 400.0, null, null, null, new Random().nextInt(16)),
-						new Produto("Intel Core i3-6400", 320.0, 480.0, null, null, null, new Random().nextInt(16)))
+		return Stream.of(
+				new Produto("RYZEN 3 3200G", 100.0, 200.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 3500", 300.0, 500.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 3600", 350.0, 550.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 3600X", 400.0, 600.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 5500", 400.0, 550.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 5600", 500.0, 700.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5600G", 500.0, 750.0, Produto.generatedDate(), null, null, new Random().nextInt(16)),
+				new Produto("RYZEN 5 5700", 600.0, 1000.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 5800", 650.0, 1050.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RYZEN 5 5800X", 800.0, 1200.0, Produto.generatedDate(), null, null,
+						new Random().nextInt(16)),
+				new Produto("RX 550", 300.0, 350.0, Produto.generatedDate(), null, null, new Random().nextInt(16)),
+				new Produto("RX 560", 350.0, 500.0, Produto.generatedDate(), null, null, new Random().nextInt(16)),
+				new Produto("RX 570", 450.0, 600.0, Produto.generatedDate(), null, null, new Random().nextInt(16)),
+				new Produto("RX 580", 500.0, 800.0, Produto.generatedDate(), null, null, new Random().nextInt(16)))
 				.map(Produto -> {
 					Produto.setSetor(Setor.mapSetor(Produto.getNome()));
 					return Produto;
 				}).collect(Collectors.toList());
 	}
-
 }
