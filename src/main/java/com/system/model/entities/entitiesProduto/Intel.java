@@ -15,11 +15,11 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
-import com.system.interfac.ApacheInterface;
-import com.system.interfac.ProdutoInterface;
 import com.system.model.entities.Produto;
 import com.system.model.entities.ProdutoExtends;
 import com.system.model.entities.Setor;
+import com.system.model.impl.ApacheInterface;
+import com.system.model.impl.ProdutoInterface;
 import com.system.services.ApacheServices;
 
 public class Intel extends ProdutoExtends implements ApacheInterface, ProdutoInterface {

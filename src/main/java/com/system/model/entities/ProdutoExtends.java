@@ -16,11 +16,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.system.apacheException.ApacheException;
 ////import com.system.apacheException.ApacheException;
-import com.system.interfac.ApacheInterface;
-import com.system.interfac.ProdutoInterface;
 import com.system.model.entities.entitiesProduto.Amd;
 import com.system.model.entities.entitiesProduto.Intel;
 import com.system.model.entities.entitiesProduto.Nvidia;
+import com.system.model.impl.ApacheInterface;
+import com.system.model.impl.ProdutoInterface;
 import com.system.services.ApacheServices;
 
 public class ProdutoExtends {

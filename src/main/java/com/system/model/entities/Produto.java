@@ -1,5 +1,6 @@
 package com.system.model.entities;
 
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;

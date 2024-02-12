@@ -1,11 +1,15 @@
 package com.system.services;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.util.Iterator;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -80,4 +84,34 @@ public class ApacheServices {
 			}
 		}
 	}
+	
+	public static void lerPlanilha(String path) {
+		try(FileInputStream file = new FileInputStream(path)){
+			XSSFWorkbook book = new XSSFWorkbook(file);
+			int contador = 0;
+			while(contador <= 11) {
+				XSSFSheet sheet = book.getSheetAt(contador);
+				Iterator<Row> rowIterator =  sheet.iterator();
+				while(rowIterator.hasNext()) {
+					Row row = rowIterator.next();
+					
+					Iterator<Cell> cellIterator = row.cellIterator();
+					while(cellIterator.hasNext()) {
+						Cell cell = cellIterator.next();
+						System.out.println(cell.toString() + "\t");
+					}
+					System.out.println();
+				}
+				System.out.println("Folha" + (contador+1));
+				contador++;
+			}
+			file.close();
+		}catch(IOException e) {
+			throw new ApacheException(e.getMessage());
+		}
+	}
+	
+	
+	
+	
 }

@@ -1,4 +1,4 @@
-package com.system.interfac;
+package com.system.model.impl;
 
 import java.util.List;
 
