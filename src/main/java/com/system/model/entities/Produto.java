@@ -21,10 +21,21 @@ public class Produto {
 	private Integer quantidade;
 
 	public Produto() {
+		
+	}
+	
+	public Produto(String nome, Integer id, Double custo, Double price, Date dataEntrada, Date dataSaida, Setor setor) {
+		this.nome = nome;
+		this.id = id;
+		this.custo = custo;
+		this.price = price;
+		this.dataEntrada = dataEntrada;
+		this.dataSaida = dataSaida;
+		this.setor = setor;
 	}
 
 	public Produto(String nome, Integer id, Double custo, Double price, Date dataEntrada, Date dataSaida, Setor setor,
-			String codLista, Integer quantidade) {
+			String codLista) {
 		this.nome = nome;
 		this.id = id;
 		this.custo = custo;
@@ -33,7 +44,6 @@ public class Produto {
 		this.dataSaida = dataSaida;
 		this.setor = setor;
 		this.codLista = codLista;
-		this.quantidade = quantidade;
 	}
 
 	public Produto(String nome, Double custo, Double price, Date dataEntrada, Date dataSaida, Setor setor,
@@ -44,7 +54,6 @@ public class Produto {
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
 		this.setor = setor;
-
 		this.quantidade = quantidade;
 	}
 
@@ -137,4 +146,12 @@ public class Produto {
 		LocalDate localDate = LocalDate.of(year, month, day);
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
+
+	@Override
+	public String toString() {
+		return "Produto " + nome + ", custo=" + custo + ", price=" + price + ", dataEntrada="
+				+ dataEntrada + ", dataSaida=" + dataSaida + ", setor=" + setor + ", codLista=" + codLista;
+	}
+	
+	
 }

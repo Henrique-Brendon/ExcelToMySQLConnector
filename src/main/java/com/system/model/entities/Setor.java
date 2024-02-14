@@ -82,4 +82,13 @@ public class Setor {
 		return sec;
 	}
 
+	@Override
+	public String toString() {
+		return "Setor :" + nomemClaEnumProduto;
+	}
+
+
+	
+	
+
 }

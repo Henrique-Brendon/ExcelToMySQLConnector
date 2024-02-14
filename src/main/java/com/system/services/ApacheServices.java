@@ -6,9 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -17,10 +22,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.system.apacheException.ApacheException;
+import com.system.model.entities.Produto;
 import com.system.model.entities.ProdutoExtends;
+import com.system.model.entities.Setor;
 import com.system.model.entities.entitiesProduto.Amd;
 import com.system.model.entities.entitiesProduto.Intel;
 import com.system.model.entities.entitiesProduto.Nvidia;
+import com.system.typeEnum.EnumProduto;
 
 
 public class ApacheServices {
@@ -111,7 +119,94 @@ public class ApacheServices {
 		}
 	}
 	
-	
-	
-	
+	public static void capturarObjetos(String path) throws ParseException {
+	    try (FileInputStream file = new FileInputStream(new File(path));
+	         XSSFWorkbook workbook = new XSSFWorkbook(file)) {
+
+	        List<Produto> listProduto = new ArrayList<>();
+
+	        for (int contador = 0; contador <= 11; contador++) {
+	            XSSFSheet sheet = workbook.getSheetAt(contador);
+	            int row = 5; // Aqui é onde começam os dados
+
+	            int lastRow = sheet.getLastRowNum();
+	            
+	            int variavelcontadora = 0;
+	            while (row <= lastRow) {
+	                XSSFRow rowX = sheet.getRow(row);
+	                if (rowX == null) {
+	                    break;
+	                }
+	                Produto produto = new Produto();
+	                for (int i = 0; i < 8; i++) {
+	                    XSSFCell cell = rowX.getCell(i);	                       
+	                        switch (i) {
+	                            case 0:
+	                                if (cell.getCellType() == CellType.STRING) {
+	                                    produto.setNome(cell.getStringCellValue());
+	                                }
+	                                break;
+	                            case 1:
+	                            case 2:
+	                                if (cell.getCellType() == CellType.STRING) {
+	                                    String suja = cell.getStringCellValue();
+	                                    String valorLimpo = suja.replaceAll("[^\\d.]", "");
+	                                    double valorDouble = Double.parseDouble(valorLimpo);
+
+	                                    if (i == 1) {
+	                                        produto.setCusto(valorDouble);
+	                                    } else {
+	                                        produto.setPrice(valorDouble);
+	                                    }
+	                                }
+	                                break;
+	                            case 3:
+	                                if (cell.getCellType() == CellType.STRING) {
+	                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	                                    String dateAux = cell.getStringCellValue();
+	                                    Date date = dateFormat.parse(dateAux);
+	                                    produto.setDataEntrada(date);
+	                                }
+	                                break;
+	                            case 4:
+	                                // produto.setDataSaida() vai receber null
+	                                break;
+	                            case 5:
+	                                if (cell.getCellType() == CellType.STRING) {
+	                                    EnumProduto enumProduto = EnumProduto.valueOf(cell.getStringCellValue());
+	                                    produto.setSetor(new Setor(enumProduto));
+	                                }
+	                                break;
+	                            case 6:
+	                            	if (cell.getCellType() == CellType.STRING) {
+	                            		 produto.setCodLista(cell.getStringCellValue());
+	                            	}
+	                            	break;
+	                            case 7:
+	                                if (cell.getCellType() == CellType.NUMERIC) {
+	                                    int quantidade = (int) cell.getNumericCellValue();
+		                                    for(int j = 0; j<quantidade; j++) {
+		                                    	listProduto.add(produto); // vai repetir o produto instanciado pela quantidade
+		                                    }
+	                                }
+	                                break;
+							default:
+								listProduto.add(produto);
+	                        }	                    
+	                }
+	                System.out.println("-----------");
+	                row++;
+	            }
+	        }
+	        
+	        int I = 1;
+	        for (Produto p : listProduto) {
+	            System.out.println(I + "°, produto:  " + p);
+	            I++;
+	        }
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 }
